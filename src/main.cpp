@@ -9,7 +9,7 @@ int main()
   jobs::URL url("google.com");
   jobs::JobApp app(url);
 
-  app.print();
+  std::cout << app;
 
   return 0;
 }
