@@ -22,13 +22,16 @@ static std::map<std::string, AppStatus> status_map = {
   {"referred", REFERRED},
   {"contacted", CONTACTED},
   {"oa", OA},
-  {"first_round", FIRST_ROUND},
-  {"second_round", SECOND_ROUND},
+  {"first round", FIRST_ROUND},
+  {"second round", SECOND_ROUND},
   {"third_round", THIRD_ROUND},
   {"accepted", ACCEPTED},
   {"rejected", REJECTED},
   {"ghosted", GHOSTED}
 };
+
+std::string status_to_string(AppStatus status);
+
 
 class JobApp
 {

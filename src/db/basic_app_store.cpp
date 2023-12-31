@@ -2,33 +2,14 @@
 
 using namespace jobs;
 
-BasicAppStore::BasicAppStore()
-{
-  load_apps();
-}
-
-BasicAppStore::~BasicAppStore()
-{
-  save_apps();
-}
-
-void BasicAppStore::load_apps()
-{
-  // TODO: Loading apps
-}
-
-void BasicAppStore::save_apps()
-{
-  // TODO: Saving apps
-}
-
-void BasicAppStore::store_app(JobApp *app)
+uint64_t BasicAppStore::store_app(std::shared_ptr<JobApp> app)
 {
   uint64_t id = gen_key();
   apps[id] = app;
+  return id;
 }
 
-void BasicAppStore::update_app(const uint64_t id, JobApp *app)
+void BasicAppStore::update_app(const uint64_t id, std::shared_ptr<JobApp> app)
 {
   apps[id] = app;
 }
@@ -38,14 +19,14 @@ void BasicAppStore::remove_app(const uint64_t id)
   apps.erase(id);
 }
 
-JobApp* BasicAppStore::get_app(const uint64_t id)
+std::shared_ptr<JobApp> BasicAppStore::get_app(const uint64_t id)
 {
   return apps[id];
 }
 
-std::vector<JobApp*> BasicAppStore::get_apps()
+std::vector<std::shared_ptr<JobApp>> BasicAppStore::get_apps()
 {
-  std::vector<JobApp*> v;
+  std::vector<std::shared_ptr<JobApp>> v;
   for (auto it = apps.begin(); it != apps.end(); it++)
   {
     v.push_back(it->second);

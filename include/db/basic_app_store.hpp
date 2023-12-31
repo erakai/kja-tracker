@@ -1,35 +1,36 @@
-#include "../model/job_app.hpp"
+#include "model/job_app.hpp"
+#include "db/app_store.hpp"
 
 #include <map>
 
-#ifndef APP_STORE_HPP
-#define APP_STORE_HPP
+#ifndef BASIC_APP_STORE_HPP
+#define BASIC_APP_STORE_HPP
 
 namespace jobs
 {
 
-class BasicAppStore
+class BasicAppStore: public AppStore
 {
   public:
-    BasicAppStore();
-    ~BasicAppStore();
+    BasicAppStore() = default;
+    ~BasicAppStore() = default; 
 
-    void store_app(JobApp *app);
-    void update_app(const uint64_t id, JobApp *app);
-    void remove_app(const uint64_t id);
-    JobApp* get_app(const uint64_t id);
-    std::vector<JobApp*> get_apps();
+    uint64_t store_app(std::shared_ptr<JobApp> app) override;
+    void update_app(const uint64_t id, std::shared_ptr<JobApp> app) override;
+    void remove_app(const uint64_t id) override;
+    std::shared_ptr<JobApp> get_app(const uint64_t id) override;
+    std::vector<std::shared_ptr<JobApp>> get_apps() override;
 
-  private:
-    void load_apps();
-    void save_apps();
+  protected:
+    void load_apps() override {};
+    void save_apps() override {};
 
-    uint64_t gen_key()
+    uint64_t gen_key() override
     {
       return apps.size() + 1;
     }
 
-    std::map<uint64_t, JobApp*> apps;
+    std::map<uint64_t, std::shared_ptr<JobApp>> apps;
 
 };
 

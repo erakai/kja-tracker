@@ -51,15 +51,23 @@ void CLIRunner::add_job()
   }
 
   jobs::URL job_url(url);
-  jobs::JobApp new_app(job_url);
-  new_app.update_status(jobs::status_map[status]);
+  std::shared_ptr<jobs::JobApp> job_ptr(new jobs::JobApp(job_url));
+  job_ptr->update_status(jobs::status_map[status]);
+
+  store.store_app(job_ptr);
 
   std::cout << "Application tracked!\n";
 }
 
 void CLIRunner::view_jobs()
 {
-  std::cout << "viewing\n";
+  std::cout << "STATUS - URL\n";
+
+  std::vector<std::shared_ptr<jobs::JobApp>> jobs = store.get_apps();
+  for (auto j: jobs)
+  {
+    std::cout << " " << jobs::status_to_string(j->status()) << " - " << *j;
+  }
 }
 
 void CLIRunner::update_job_status()
