@@ -24,7 +24,7 @@ static std::map<std::string, AppStatus> status_map = {
   {"oa", OA},
   {"first round", FIRST_ROUND},
   {"second round", SECOND_ROUND},
-  {"third_round", THIRD_ROUND},
+  {"third round", THIRD_ROUND},
   {"accepted", ACCEPTED},
   {"rejected", REJECTED},
   {"ghosted", GHOSTED}

@@ -21,16 +21,15 @@ void BasicAppStore::remove_app(const uint64_t id)
 
 std::shared_ptr<JobApp> BasicAppStore::get_app(const uint64_t id)
 {
+  if (apps.find(id) == apps.end())
+  {
+    return nullptr;
+  }
+
   return apps[id];
 }
 
-std::vector<std::shared_ptr<JobApp>> BasicAppStore::get_apps()
+std::map<uint64_t, std::shared_ptr<JobApp>> BasicAppStore::get_apps()
 {
-  std::vector<std::shared_ptr<JobApp>> v;
-  for (auto it = apps.begin(); it != apps.end(); it++)
-  {
-    v.push_back(it->second);
-  }
-
-  return v;
+  return apps;
 }

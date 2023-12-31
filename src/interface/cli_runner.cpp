@@ -46,7 +46,7 @@ void CLIRunner::add_job()
   std::string status = prompt();
   if (jobs::status_map.find(status) == jobs::status_map.end())
   {
-    std::cout << "Invalid.\n";
+    std::cout << "Invalid status.\n";
     return;
   }
 
@@ -61,16 +61,45 @@ void CLIRunner::add_job()
 
 void CLIRunner::view_jobs()
 {
-  std::cout << "STATUS - URL\n";
+  std::cout << "ID - STATUS - URL\n";
 
-  std::vector<std::shared_ptr<jobs::JobApp>> jobs = store.get_apps();
+  std::map<uint64_t, std::shared_ptr<jobs::JobApp>> jobs = store.get_apps();
   for (auto j: jobs)
   {
-    std::cout << " " << jobs::status_to_string(j->status()) << " - " << *j;
+    std::cout << " " << j.first << " - " << jobs::status_to_string(j.second->status()) << " - " << *(j.second);
   }
 }
 
 void CLIRunner::update_job_status()
 {
-  std::cout << "updating\n";
+  std::cout << "What is the ID of the application you would like to update?\n";
+
+  std::string id_str = prompt();
+  uint64_t id = std::stoi(id_str);
+
+  if (store.get_app(id) == nullptr)
+  {
+    std::cout << "Invalid ID.\n";
+    return;
+  }
+
+  std::cout << "What status would you like to update it with?\n";
+  std::cout << "\t - (oa)\n";
+  std::cout << "\t - (first round)\n";
+  std::cout << "\t - (second round)\n";
+  std::cout << "\t - (third round)\n";
+  std::cout << "\t - (accepted)\n";
+  std::cout << "\t - (rejected)\n";
+  std::cout << "\t - (ghosted)\n";
+
+  std::string str_status = prompt();
+  if (jobs::status_map.find(str_status) == jobs::status_map.end())
+  {
+    std::cout << "Invalid status.\n";
+    return;
+  }
+  jobs::AppStatus status = jobs::status_map[str_status];
+
+  store.get_app(id)->update_status(status);
+  std::cout << "Updated!\n";
 }

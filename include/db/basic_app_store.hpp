@@ -19,7 +19,7 @@ class BasicAppStore: public AppStore
     void update_app(const uint64_t id, std::shared_ptr<JobApp> app) override;
     void remove_app(const uint64_t id) override;
     std::shared_ptr<JobApp> get_app(const uint64_t id) override;
-    std::vector<std::shared_ptr<JobApp>> get_apps() override;
+    std::map<uint64_t, std::shared_ptr<JobApp>> get_apps() override;
 
   protected:
     void load_apps() override {};
@@ -31,7 +31,6 @@ class BasicAppStore: public AppStore
     }
 
     std::map<uint64_t, std::shared_ptr<JobApp>> apps;
-
 };
 
 }

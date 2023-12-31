@@ -15,7 +15,7 @@ class AppStore
     virtual void update_app(const uint64_t id, std::shared_ptr<JobApp> app) = 0;
     virtual void remove_app(const uint64_t id) = 0;
     virtual std::shared_ptr<JobApp> get_app(const uint64_t id) = 0;
-    virtual std::vector<std::shared_ptr<JobApp>> get_apps() = 0;
+    virtual std::map<uint64_t, std::shared_ptr<JobApp>> get_apps() = 0;
 
   protected:
     virtual void load_apps() = 0;
