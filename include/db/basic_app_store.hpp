@@ -8,18 +8,11 @@
 namespace jobs
 {
 
-class AppStore
+class BasicAppStore
 {
   public:
-    AppStore()
-    {
-      load_apps();
-    }
-
-    ~AppStore()
-    {
-      save_apps();
-    }
+    BasicAppStore();
+    ~BasicAppStore();
 
     void store_app(JobApp *app);
     void update_app(const uint64_t id, JobApp *app);

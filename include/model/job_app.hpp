@@ -1,6 +1,7 @@
 #include "url.hpp"
 
 #include <vector>
+#include <map>
 
 #ifndef JOB_APP_H
 #define JOB_APP_H
@@ -16,11 +17,23 @@ enum AppStatus
   ACCEPTED, REJECTED, GHOSTED
 };
 
+static std::map<std::string, AppStatus> status_map = {
+  {"applied", APPLIED},
+  {"referred", REFERRED},
+  {"contacted", CONTACTED},
+  {"oa", OA},
+  {"first_round", FIRST_ROUND},
+  {"second_round", SECOND_ROUND},
+  {"third_round", THIRD_ROUND},
+  {"accepted", ACCEPTED},
+  {"rejected", REJECTED},
+  {"ghosted", GHOSTED}
+};
 
 class JobApp
 {
   public:
-    JobApp(URL url);
+    JobApp(URL url) : url(url) {};
 
     void update_status(AppStatus new_status);
     AppStatus& status();

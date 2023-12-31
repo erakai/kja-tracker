@@ -1,15 +1,10 @@
-#include "job_app.hpp"
+#include "model/job_app.hpp"
 
 #include <iostream>
 
 namespace jobs
 {
-
-JobApp::JobApp(URL url) : url(url)
-{
-
-}
-
+  
 void JobApp::update_status(const AppStatus new_status)
 {
   status_hist.push_back(new_status);
